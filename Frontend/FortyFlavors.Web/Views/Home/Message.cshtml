@@ -1,0 +1,102 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.webp');">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <h1 class="mb-0 bread">Mesaj Gönder</h1>
+                <p class="breadcrumbs">
+                    <span class="mr-2"><a href="/">Ana Sayfa</a></span>
+                    <span>Mesaj Gönder</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section contact-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-8 text-center">
+                <h3 class="mb-4">Bir İşletme Seçin</h3>
+                <p class="text-muted">Sohbet başlatmak istediğiniz işletmeyi seçin.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-2 text-center">
+                <div class="business-circle" onclick="selectBusiness('Dünya Döner')">
+                    <img src="images/bg_1.webp" alt="Burger King">
+                </div>
+                <p class="mt-2">Dünya Döner</p>
+            </div>
+            <div class="col-md-2 text-center">
+                <div class="business-circle" onclick="selectBusiness('39 Pizza')">
+                    <img src="images/category-1.webp" alt="Dominos Pizza">
+                </div>
+                <p class="mt-2">39 Pizza</p>
+            </div>
+            <div class="col-md-2 text-center">
+                <div class="business-circle" onclick="selectBusiness('Kebapçı Mehmet')">
+                    <img src="images/category-3.webp" alt="Kebapçı Mehmet">
+                </div>
+                <p class="mt-2">Kebapçı Mehmet</p>
+            </div>
+            <div class="col-md-2 text-center">
+                <div class="business-circle" onclick="selectBusiness('Tatlıcı Ayşe')">
+                    <img src="images/category-4.webp" alt="Tatlıcı Ayşe">
+                </div>
+                <p class="mt-2">Tatlıcı Ayşe</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container chat-container" id="chatContainer" style="display: none;">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="chat-box shadow-lg">
+                    <div class="chat-header">
+                        <h5 id="businessName" class="mb-0">Sohbet</h5>
+                    </div>
+                    <div class="chat-body" id="chatBody">
+                        <p class="system-message">Mesajlaşmayı başlatmak için aşağıya yazın.</p>
+                    </div>
+                    <div class="chat-footer">
+                        <input type="text" class="form-control chat-input" id="messageInput" placeholder="Mesajınızı yazın...">
+                        <button type="button" class="btn btn-success chat-send" onclick="sendMessage()">Gönder</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function selectBusiness(businessName) {
+        document.getElementById('businessName').textContent = businessName;
+        document.getElementById('chatContainer').style.display = 'block';
+        document.getElementById('chatBody').innerHTML = `<p class="system-message">${businessName} ile mesajlaşmaya başlamak için aşağıya yazın.</p>`;
+        const chatContainer = document.getElementById('chatContainer');
+        chatContainer.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('messageInput').focus();
+    }
+
+    function sendMessage() {
+        const messageInput = document.getElementById('messageInput');
+        const chatBody = document.getElementById('chatBody');
+        const message = messageInput.value.trim();
+        if (message) {
+            const userMessage = document.createElement('div');
+            userMessage.className = 'user-message';
+            userMessage.textContent = message;
+            chatBody.appendChild(userMessage);
+            const reply = document.createElement('div');
+            reply.className = 'business-message';
+            reply.textContent = 'Teşekkürler, en kısa sürede size geri dönüş yapacağız.';
+            chatBody.appendChild(reply);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            messageInput.value = '';
+        }
+    }
+</script>

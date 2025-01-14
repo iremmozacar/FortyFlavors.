@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/FortyFlavors.Web.props" />
+</Project>
